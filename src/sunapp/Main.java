@@ -6,10 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
+import javax.servlet.http.*;
+import javax.servlet.*;
+import java.io.*;
+import java. util.*;
+
+//import org.eclipse.jetty.webapp.WebAppContext;
 import javax.xml.ws.handler.HandlerResolver;
-import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.virtualsolar.vso.vsoi.DataContainer;
 import org.virtualsolar.vso.vsoi.DataItem;
 import org.virtualsolar.vso.vsoi.DataRequestItem;
@@ -31,6 +34,9 @@ import org.virtualsolar.vso.vsoi.VSOGetDataResponse;
 import org.virtualsolar.vso.vsoi.VSOiPort;
 import org.virtualsolar.vso.vsoi.VSOiService;
 import org.virtualsolar.vso.vsoi.Wave;
+
+import com.sun.net.httpserver.HttpServer;
+
 import sunapp.DateTime;
 import java.rmi.RemoteException;
 /**
@@ -56,7 +62,7 @@ public class Main {
             webPort = "8080";
         }
 
-        Server server = new Server(Integer.valueOf(webPort));
+        HttpServer server = new HttpServer(Integer.valueOf(webPort));
         WebAppContext root = new WebAppContext();
 
         root.setContextPath("/");
