@@ -46,37 +46,15 @@ import java.rmi.RemoteException;
  * launching should fire this main method.
  *
  */
-@SuppressWarnings({ "unused", "restriction" })
+
 public class Main {
     
     /**
      * @param args
      */
-    public static void main(String[] args) throws RemoteException{
-        String webappDirLocation = "src/main/webapp/";
-        
-        //The port that we should run on can be set into an environment variable
-        //Look for that variable and default to 8080 if it isn't there.
-        String webPort = System.getenv("PORT");
-        if(webPort == null || webPort.isEmpty()) {
-            webPort = "8080";
-        }
-
-        HttpServer server = new HttpServer(Integer.valueOf(webPort));
-        WebAppContext root = new WebAppContext();
-
-        root.setContextPath("/");
-        root.setDescriptor(webappDirLocation+"/WEB-INF/web.xml");
-        root.setResourceBase(webappDirLocation);
-        
-        //Parent loader priority is a class loader setting that Jetty accepts.
-        //By default Jetty will behave like most web containers in that it will
-        //allow your application to replace non-server libraries that are part of the
-        //container. Setting parent loader priority to true changes this behavior.
-        //Read more here: http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
-        root.setParentLoaderPriority(true);
-        
-        server.setHandler(root);
+    @SuppressWarnings("unused")
+	public static void main(String[] args) throws RemoteException{
+  
 
        
 
@@ -92,18 +70,7 @@ public class Main {
         
          
 
-        try {
-			server.start();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        try {
-			server.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   
+  
          }
 
 	private static void time(Time timeparam) {
@@ -127,7 +94,7 @@ public class Main {
         String secondString = Integer.toString(seconds);
         String DayPreviousString = Integer.toString(DayMinus);
         String stringTimeCurrent = hourString + minuteString + secondString;
-    	@SuppressWarnings("unused")
+    	
     	String dateTimeCurrent = stringDate + stringTimeCurrent;
     	
 
