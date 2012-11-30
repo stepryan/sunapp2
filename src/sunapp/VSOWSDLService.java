@@ -32,6 +32,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.SimpleTimeZone;
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +85,7 @@ public class VSOWSDLService {
     	     Map<String,List<String>> getDataMap = new HashMap<String,List<String>>();
     	     for(ProviderQueryResponse queryresponse:queryReturn) {
     	    	 System.out.println("Provider:" + queryresponse.getProvider());
-    	    	 if(queryresponse.getStatus() != null) {
+    	    	 if(queryresponse.getStatus() != null) 
     	    		System.out.println("Status" + queryresponse.getStatus()) ;
     	    		System.out.println("Number of Records Found:"+ queryresponse.getNoOfRecordsFound());
     	    		System.out.println("Number of Records Returned" + queryresponse.getNoOfRecordsReturned());
@@ -93,10 +94,79 @@ public class VSOWSDLService {
     	    		numberofrecordsreturned = queryresponse.getNoOfRecordsReturned();
     	    		
     	    		QueryResponseBlockArray block = queryresponse.getRecord();
-    	    	 }
+    	    		
+    	    	 
+    	    	 List <QueryResponseBlock> records = block.getRecorditem();
+    	    	 for(QueryResponseBlock rec:records ){
+        	    	 List<String> fids = null;
+        	    	 String provider = rec.getProvider();
+        	    	 if(!getDataMap.containsKey(provider)){
+        	    	 fids = new ArrayList<String>();
+        	    	 getDataMap.put(provider, fids);
+        	    	 } else{
+        	    		 fids = getDataMap.get(provider);
+        	    	 }
+        	    	 fids.add(rec.getFileid());
     	     }
-    	     return numberofrecordsfound;
+    	     
+    	    
+    	     
     }
-  
+    	     
+    	     
+    	     VSOGetDataRequest vsodRequest = new VSOGetDataRequest();
+    	     GetDataRequest request = new GetDataRequest();
+    	     MethodItem Item = new MethodItem();
+    	     List<String> getDataMethods = Item.getMethodtype();
+    	     getDataMethods.add("URL-File");
+    	     request.setMethod(Item);
+    	     
+    	     DataContainer data = new DataContainer();
+    	     List<DataRequestItem> listOfData = new ArrayList<DataRequestItem>();
+    	     List<DataRequestItem> dataReqList = new ArrayList<DataRequestItem>();
+    	     
+    	     for (Object provider: getDataMap.keySet().toArray()){
+    	    	 DataRequestItem element = new DataRequestItem();
+    	    	 element.setProvider((String) provider);
+    	    	 dataReqList.add(element);
+    	    	 List<String> fids = getDataMap.get(provider);
+    	    	 FileidItem fidItem = new FileidItem();
+    	    	 element.setFileiditem(fidItem);
+    	    	 
+    	    	 List <String> fidList = fidItem.getFileid();
+    	    	 
+    	    	 fidList.addAll(fids);
+    	    	 
+    	     }
+    	     
+    	     listOfData.addAll(dataReqList);
+    	     List<DataRequestItem> drItems = data.getDatarequestitem();
+    	     for(DataRequestItem drItem:drItems){
+    	    	 List<String> fids = drItem.getFileiditem().getFileid();
+    	     }
+    	     
+    	     request.setDatacontainer(data);
+    	     
+    	     vsodRequest.setRequest(request);
+    	     vsodRequest.setVersion("1");
+    	     
+    	     VSOGetDataResponse gdResponse = port.getData(vsodRequest);
+    	     
+    	     List<GetDataResponseItem> grespItem = gdResponse.getGetdataresponseitem();
+    	     for(GetDataResponseItem item:grespItem){
+    	    	 String provider  = item.getProvider();
+    	    	 GetDataItem gItem = item.getGetdataitem();
+    	    	 List<DataItem> dItem = gItem.getDataitem();
+    	    	 
+    	    	
+    	     }
+    	     
+    	     
+    	     
+    	     
+    	     return numberofrecordsfound;
+    	     
+    	     
 
+    }
 }
