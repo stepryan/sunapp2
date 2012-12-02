@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public class HelloServlet extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -36,9 +41,9 @@ public class HelloServlet extends HttpServlet {
          String dateplusurl = searchurl + stringDate;
        
          VSOWSDLService client = new  VSOWSDLService();
-         int recreturn = client.returnQuery();
-         String reccount = Integer.toString(recreturn);
-         out.write(reccount.getBytes());
+         //int recreturn = client.returnQuery();
+       //  String reccount = Integer.toString(recreturn);
+       //  out.write(reccount.getBytes());
          out.write(":Records retrieved:".getBytes());
        out.write(stringDate.getBytes());
       //  System.out.println(dateform.format(date));

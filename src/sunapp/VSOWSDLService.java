@@ -45,29 +45,24 @@ import java.rmi.RemoteException;
 @WebService
 @SOAPBinding(style = Style.RPC)
 
-@SuppressWarnings({ "unused", "restriction" })
+@SuppressWarnings({ "unused" })
 public class VSOWSDLService {
 	
     int numberofrecordsfound;
     int numberofrecordsreturned;
     
     
-    public  DateTime setTime(DateTime time){
-    	return time;
-    }
-  
-   // String currentTime =  timedate.stringCurrentDate();
+ 
     VSOiService service = new VSOiService(); // creates VSO service using code generated from WSDL to allow it to access service
     VSOiPort port = service.getNsoVSOi();  // creates VSO port to allow queries of DB;
     QueryRequest query =new QueryRequest(); // creates new query to query VSO data;
   
     QueryRequestBlock datablock = new QueryRequestBlock();
-    public int returnQuery() {
+    public List<GetDataResponseItem> returnQuery() {
     	Time timeParamaters = new Time();
-    	timeParamaters.setStart("20121126161400");
-    	   timeParamaters.setEnd(  "20121126151500");     
-    	   
-    	//    getTimeParams(timeParameters);    	     
+    	DateTime time = new DateTime();
+    	List<String[]> querydata = new ArrayList<String[]>();
+    	     
     	query.setVersion(new Float("0.6").floatValue());
     	     
     	     datablock.setTime(timeParamaters);
@@ -86,9 +81,6 @@ public class VSOWSDLService {
     	     for(ProviderQueryResponse queryresponse:queryReturn) {
     	    	 System.out.println("Provider:" + queryresponse.getProvider());
     	    	 if(queryresponse.getStatus() != null) 
-    	    		System.out.println("Status" + queryresponse.getStatus()) ;
-    	    		System.out.println("Number of Records Found:"+ queryresponse.getNoOfRecordsFound());
-    	    		System.out.println("Number of Records Returned" + queryresponse.getNoOfRecordsReturned());
     	    		
     	    		numberofrecordsfound = queryresponse.getNoOfRecordsFound();
     	    		numberofrecordsreturned = queryresponse.getNoOfRecordsReturned();
@@ -163,8 +155,7 @@ public class VSOWSDLService {
     	     
     	     
     	     
-    	     
-    	     return numberofrecordsfound;
+    	     return grespItem;
     	     
     	     
 

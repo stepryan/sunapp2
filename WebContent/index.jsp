@@ -7,13 +7,15 @@
 <%@ page import="com.amazonaws.services.s3.model.*" %>
 <%@ page import="com.amazonaws.services.simpledb.*" %>
 <%@ page import="com.amazonaws.services.simpledb.model.*" %>
-
-
+<%@ page import="sunapp.*" %>
+<%@ page import= "org.virtualsolar.vso.vsoi.*" %>
+<%@ page import= "java.util.List" %>
 <%! // Share the client objects across threads to
     // avoid creating new clients for each web request
     private AmazonEC2      ec2;
     private AmazonS3        s3;
     private AmazonSimpleDB sdb;
+    private List <GetDataResponseItem> recordtotal ;
  %>
 
 <%
@@ -40,12 +42,28 @@
     }
 %>
 
+<%
+	VSOiService service = new VSOiService(); // creates VSO service using code generated from WSDL to allow it to access service
+	VSOiPort port = service.getNsoVSOi();  // creates VSO port to allow queries of DB;
+	QueryRequest query =new QueryRequest(); // creates new query to query VSO data;
+	Time timeparam = new Time();
+    DateTime time = new DateTime();
+    VSOWSDLService client = new VSOWSDLService();
+   recordtotal =client.returnQuery();
+
+
+
+
+
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <title>Sunapp Home Page</title>
+    <title>Welcome to Sunapp Home Page</title>
     <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen">
+    <meta http-equiv="REFRESH" content="0 ,url=http://sunapp.elasticbeanstalk.com/hello">
 </head>
 <body>
   <div class="section grid grid5 s3">
@@ -76,8 +94,15 @@
             <% } %>
             </ul>
         </div>
-    </div>
-      <div id="content" class="container">
+              <div id="content" class="container">
 <img name="SDO" src="" width="32" height="32" alt="SDO Image">
+</div>
+<div>
+<ul>
+ <%
+        	out.print("the number of records returned:"+ recordtotal); %>
+</ul>
+</div>
+       
 </body>
 </html>
