@@ -43,11 +43,7 @@
 %>
 
 <%
-	VSOiService service = new VSOiService(); // creates VSO service using code generated from WSDL to allow it to access service
-	VSOiPort port = service.getNsoVSOi();  // creates VSO port to allow queries of DB;
-	QueryRequest query =new QueryRequest(); // creates new query to query VSO data;
-	Time timeparam = new Time();
-    DateTime time = new DateTime();
+	
     VSOWSDLService client = new VSOWSDLService();
    recordtotal =client.returnQuery();
    DisplayImage images= new DisplayImage();
@@ -68,7 +64,7 @@
 </head>
 <body>
               <div id="content" class="container">
-<img name="SDO" src="" width="2048" height="2048" alt="SDO Image">
+<img name="SDO" src="" class="DisplayImage" width="2048" height="2048" alt="SDO Image" >
 <%= images.Image() %>
 </div>
 <div>
