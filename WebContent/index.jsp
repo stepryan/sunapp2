@@ -50,7 +50,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <title>Welcome to Sunapp Home Page</title>
     <link rel="stylesheet" href="styles/styles.css" type="text/css" media="screen">
-    <meta http-equiv="REFRESH" content="0 ,url=http://sunapp.elasticbeanstalk.com/hello">
+    <meta http-equiv="REFRESH" content="0 ,url=http://sunapp.elasticbeanstalk.com/">
 </head>
 <body>
               <div id="content" class="container">
