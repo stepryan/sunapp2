@@ -13,6 +13,7 @@ public class DisplayImage {
 			hv = HelioviewerClient()
 			datasources = hv.get_data_sources()
 					hv.download_png('2009/01/01', 4.8, "[SDO,AIA,AIA,304,1,100]", x0=0, y0=0, width=512, height=512)
-			
+			 
+					
 		}
 }

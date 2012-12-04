@@ -55,7 +55,8 @@
 <body>
               <div id="content" class="container">
 <img name="SDO" src="" class="DisplayImage" width="512" height="512" alt="SDO Image" >
-
+<% DisplayImage imagecaller = new DisplayImage(); %>
+<%imagecaller.Image(); %>
 </div>
 <div>
      	<% String reccount =(String) request.getAttribute("total"); %>
