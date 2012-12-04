@@ -6,21 +6,13 @@ import org.python.util.PythonInterpreter;
 
 import sunpy;
 import matplotlib.pyplot as plt
-
+from sunpy.net.helioviewer import HelioviewerClient
 public class DisplayImage {
 
 		public  void Image() throws PyException{
+			hv = HelioviewerClient()
+			datasources = hv.get_data_sources()
+					hv.download_png('2009/01/01', 4.8, "[SDO,AIA,AIA,304,1,100]", x0=0, y0=0, width=512, height=512)
 			
-
-			aia = sunpy.make_map(sunpy.AIA_171_IMAGE)
-
-			fig = plt.figure()
-			ax = plt.subplot(111)
-
-			aia.plot()
-			plt.colorbar()
-			aia.draw_limb()
-
-			plt.show()
 		}
 }

@@ -16,6 +16,7 @@
     private AmazonS3        s3;
     private AmazonSimpleDB sdb;
     private List <GetDataResponseItem> recordtotal ;
+     
  %>
 
 <%
@@ -42,18 +43,7 @@
     }
 %>
 
-<%
-	
-    VSOWSDLService client = new VSOWSDLService();
-   recordtotal =client.returnQuery();
-   DisplayImage images= new DisplayImage();
 
-
-
-
-
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,14 +54,12 @@
 </head>
 <body>
               <div id="content" class="container">
-<img name="SDO" src="" class="DisplayImage" width="2048" height="2048" alt="SDO Image" >
-<%= images.Image() %>
+<img name="SDO" src="" class="DisplayImage" width="512" height="512" alt="SDO Image" >
+
 </div>
 <div>
-<ul>
- <%
-        	out.print("the number of records returned:"+ recordtotal); %>
-</ul>
+     	<% String reccount =(String) request.getAttribute("total"); %>
+     	<p>Record count is:</p><%=reccount %>
 </div>
 <div>
   <form name="form1" method="post" action="">

@@ -7,7 +7,7 @@ import org.virtualsolar.vso.vsoi.Time;
 
 public class DateTime {
 	
-	public static void DTime(Time timeparam) {
+	public static  String DTime(String  dateTimeCurr) {
 		Calendar calendar = new GregorianCalendar(); // create a new gregorian calendar
         int  year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH) + 1; // add 1 to month as month starts at 0 not 1
@@ -34,9 +34,10 @@ public class DateTime {
 
     	String stringTimePrevious = DayPreviousString + minuteString + secondString;   
         String dateTimePrevious = stringDate + stringTimePrevious;
-        timeparam.setStart(dateTimePrevious);
-        timeparam.setEnd(dateTimeCurrent);
-        timeparam.setNear(dateTimeCurrent);
+      //  timeparam.setStart(dateTimePrevious);
+      //  timeparam.setEnd(dateTimeCurrent);
+     //   timeparam.setNear(dateTimeCurrent);
+        return dateTimeCurrent;
 		
 	}
 
